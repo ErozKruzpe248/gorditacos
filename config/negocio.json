@@ -1,0 +1,23 @@
+{
+  "nombre": "Gorditacos",
+  "descripcion": "Gorditas doradas, tacos, tostadas, burritos y desayunos. Elige tus guisos y arma el pedido platito por platito.",
+  "oferta": "Gorditas doradas, tacos de guiso y desayunos",
+  "frase": "Sabor regio",
+  "logo": "gorditacos.png",
+  "portada": {
+    "imagen": "gorditas.jpg",
+    "alt": "Gordita rellena de guiso"
+  },
+  "whatsapp": "528132651667",
+  "direccion": "Pelícano 5604, Valle Verde 2.º Sector, 64117 Monterrey, Nuevo León",
+  "horario": "Lunes a sábado, 8:00 a. m. a 3:30 p. m. · Domingo, 8:00 a. m. a 2:00 p. m.",
+  "mapa": "https://maps.app.goo.gl/E4nKBzDEToMEdTVE9",
+  "mapaEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3200!2d-100.3741525!3d25.737801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x866297a8d77f0def%3A0xcc33fabee77b954d!2sGorditacos%2C%20los%20originales%20en%20pel%C3%ADcano%20valle%20verde!5e0!3m2!1ses!2smx!4v1729699200000!5m2!1ses!2smx",
+  "url": "https://erozkruzpe248.github.io/gorditacos/",
+  "contador": {
+    "prueba": "matangazo.mx/revision/gorditacos-plantilla-02",
+    "permanente": "erozkruzpe248.github.io/gorditacos"
+  },
+  "agenciaWhatsApp": "528115963472",
+  "fotografiasIlustrativas": true
+}

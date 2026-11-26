@@ -1,0 +1,348 @@
+{
+  "moneda": "MXN",
+  "fuentes": {
+    "M1": "Cartel «Menú Guisos» adjunto (final 072831)",
+    "M2": "Foto reciente de chilaquiles y refrescos (072842). El nombre del cartel no corresponde a la marca de Gorditacos.",
+    "C1": "Captura anterior: Gorditas (072906)",
+    "C2": "Captura anterior: Tacos (072924)",
+    "C3": "Captura anterior: Tostadas (072945)",
+    "C4": "Captura anterior: Burritos (073020)",
+    "C5": "Captura anterior: Desayunos (073041)",
+    "C6": "Captura anterior: Guisos (073057)",
+    "W": "Reglas confirmadas por Matangazo en WORK 01"
+  },
+  "categorias": [
+    {
+      "id": "gorditas",
+      "titulo": "Gorditas",
+      "tipo": "guisos",
+      "nombre": "Gorditas doradas",
+      "precio": 28,
+      "imagen": "gorditas.jpg",
+      "alt": "Gordita rellena de guiso",
+      "fuentes": [
+        "M1",
+        "C1"
+      ]
+    },
+    {
+      "id": "tacos",
+      "titulo": "Tacos",
+      "tipo": "guisos",
+      "nombre": "Tacos",
+      "precio": 24,
+      "imagen": "tacos.jpg",
+      "alt": "Tacos de guiso",
+      "fuentes": [
+        "M1",
+        "C2"
+      ]
+    },
+    {
+      "id": "tostadas",
+      "titulo": "Tostadas",
+      "tipo": "guisos",
+      "nombre": "Tostadas",
+      "precio": 40,
+      "imagen": "tostadas.jpg",
+      "alt": "Tostadas preparadas",
+      "fuentes": [
+        "M1",
+        "C3"
+      ]
+    },
+    {
+      "id": "burritos",
+      "titulo": "Burritos",
+      "tipo": "guisos",
+      "nombre": "Burritos",
+      "precio": 90,
+      "imagen": "burritos.jpg",
+      "alt": "Burritos dorados",
+      "fuentes": [
+        "M1",
+        "C4"
+      ]
+    },
+    {
+      "id": "desayunos",
+      "titulo": "Desayunos",
+      "tipo": "desayunos",
+      "imagen": "desayunos.jpg",
+      "alt": "Plato de chilaquiles",
+      "fuentes": [
+        "M1",
+        "M2",
+        "C5"
+      ]
+    },
+    {
+      "id": "combos",
+      "titulo": "Combos",
+      "tipo": "combos",
+      "imagen": "combos.jpg",
+      "alt": "Antojitos mexicanos servidos juntos",
+      "fuentes": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "bebidas",
+      "titulo": "Bebidas",
+      "tipo": "bebidas",
+      "fuentes": [
+        "M2"
+      ],
+      "nota": "El refresco de 2 litros se ofrece con el combo de 15 gorditas."
+    }
+  ],
+  "guisos": {
+    "fuentes": [
+      "M1",
+      "C6",
+      "W"
+    ],
+    "opciones": [
+      "Deshebrada",
+      "Chicharrón rojo",
+      "Chicharrón verde",
+      "Nopalitos",
+      "Asado de puerco",
+      "Papa con chorizo",
+      "Rajas con queso",
+      "Picadillo",
+      "Machacado",
+      "Discada",
+      "Cortadillo",
+      "Carnita en salsa verde",
+      "Huevo en salsa",
+      "Frijol c/ queso",
+      "Papas con huevo"
+    ]
+  },
+  "bebidas": [
+    {
+      "id": "pepsi-regular",
+      "nombre": "Pepsi Regular",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "pepsi-black",
+      "nombre": "Pepsi Black",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "manzanita",
+      "nombre": "Manzanita",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "limon",
+      "nombre": "Aguafiel Limón",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "naranja",
+      "nombre": "Aguafiel Naranja",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "jamaica",
+      "nombre": "Aguafiel Jamaica",
+      "precio": 30,
+      "fuente": "M2"
+    },
+    {
+      "id": "agua",
+      "nombre": "Agua natural",
+      "precio": 30,
+      "fuente": "M2"
+    }
+  ],
+  "combos": [
+    {
+      "id": "gorditas-3",
+      "categoria": "gorditas",
+      "nombre": "gorditas",
+      "cantidad": 3,
+      "precio": 110,
+      "fuente": "C1"
+    },
+    {
+      "id": "gorditas-4",
+      "categoria": "gorditas",
+      "nombre": "gorditas",
+      "cantidad": 4,
+      "precio": 130,
+      "fuente": "C1"
+    },
+    {
+      "id": "gorditas-5",
+      "categoria": "gorditas",
+      "nombre": "gorditas",
+      "cantidad": 5,
+      "precio": 150,
+      "fuente": "C1"
+    },
+    {
+      "id": "gorditas-15",
+      "categoria": "gorditas",
+      "nombre": "gorditas",
+      "cantidad": 15,
+      "precio": 450,
+      "fuente": "C1",
+      "bebidaEspecial": {
+        "id": "refresco-2l",
+        "nombre": "Refresco de 2 litros"
+      }
+    },
+    {
+      "id": "tacos-5",
+      "categoria": "tacos",
+      "nombre": "tacos",
+      "cantidad": 5,
+      "precio": 140,
+      "fuente": "C2"
+    },
+    {
+      "id": "tostadas-3",
+      "categoria": "tostadas",
+      "nombre": "tostadas",
+      "cantidad": 3,
+      "precio": 140,
+      "fuente": "C3"
+    }
+  ],
+  "desayunos": [
+    {
+      "id": "chilaquiles",
+      "nombre": "Chilaquiles",
+      "precio": 130,
+      "fuentes": [
+        "M1",
+        "M2",
+        "C5",
+        "W"
+      ],
+      "opciones": [
+        {
+          "id": "salsa",
+          "etiqueta": "Salsa",
+          "opciones": [
+            "Roja",
+            "Verde",
+            "Morita"
+          ]
+        },
+        {
+          "id": "topping",
+          "etiqueta": "Topping incluido",
+          "opciones": [
+            "Pollo",
+            "Picadillo",
+            "Chicharrón en salsa verde",
+            "Huevo estrellado",
+            "Papa con chorizo",
+            "Machacado con huevo",
+            "Discada",
+            "Chicharrón en salsa roja",
+            "Carnita en salsa verde",
+            "Huevo en salsa",
+            "Papita con huevo",
+            "Asado de puerco",
+            "Deshebrada"
+          ]
+        }
+      ],
+      "incluye": [
+        "Crema",
+        "Queso para gratinar",
+        "Queso panela",
+        "Cebolla",
+        "Cilantro"
+      ],
+      "extra": {
+        "nombre": "Topping adicional",
+        "precio": 30,
+        "fuentes": [
+          "M1",
+          "C5",
+          "W"
+        ],
+        "opciones": [
+          "Deshebrada",
+          "Chicharrón rojo",
+          "Chicharrón verde",
+          "Nopalitos",
+          "Asado de puerco",
+          "Papa con chorizo",
+          "Rajas con queso",
+          "Picadillo",
+          "Machacado",
+          "Discada",
+          "Cortadillo",
+          "Carnita en salsa verde",
+          "Huevo en salsa",
+          "Frijol c/ queso",
+          "Papas con huevo"
+        ]
+      }
+    },
+    {
+      "id": "huevos",
+      "nombre": "Huevos al gusto",
+      "precio": 130,
+      "fuentes": [
+        "M1",
+        "C5"
+      ],
+      "opciones": [
+        {
+          "id": "ingrediente",
+          "etiqueta": "Ingrediente",
+          "opciones": [
+            "Espinaca",
+            "Champiñón",
+            "Chorizo",
+            "Jamón",
+            "Pico de gallo",
+            "Salchicha",
+            "Papa",
+            "Miguitas",
+            "Nopal",
+            "Carne seca"
+          ]
+        }
+      ]
+    }
+  ],
+  "variantesPendientes": {
+    "guisos": {
+      "M1": [
+        "Carnita en salsa verde",
+        "Huevo en salsa",
+        "Frijol c/ queso"
+      ],
+      "C6": [
+        "Carne en Salsa Verde",
+        "Huevo en Salsa Verde",
+        "Frijol con Queso"
+      ]
+    },
+    "huevos": {
+      "M1": "Elige tus ingredientes",
+      "C5": "Ingrediente a elegir"
+    },
+    "bebidas": {
+      "M2": "Las siete bebidas aparecen bajo «Refrescos $30», sin tamaño legible.",
+      "especial": "El combo de 15 gorditas ofrece como opción adicional el refresco de 2 L. Sabor y precio suelto de la botella por confirmar."
+    }
+  }
+}
