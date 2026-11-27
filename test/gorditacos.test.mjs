@@ -17,12 +17,12 @@ test("09 · Cantidad editable y reparto de varios guisos", () => {
   assert.equal(detail.subtotal, 120);
 });
 
-test("10 · Los combos directos aceptan todas las bebidas al precio anunciado", () => {
+test("10 · Los combos directos suman $10 únicamente por Café Americano", () => {
   for (const combo of menu.combos) {
     for (const drink of menu.bebidas) {
       const plate = { categoria: combo.categoria, combo: combo.id, guisos: { Deshebrada: combo.cantidad }, bebidaCombo: drink.id };
       const detail = pricePlate(menu, plate);
-      assert.equal(detail.subtotal, combo.precio);
+      assert.equal(detail.subtotal, combo.precio + (drink.id === "cafe-americano" ? 10 : 0));
       assert.equal(detail.combos[0].drink, drink.nombre);
     }
   }
@@ -48,6 +48,9 @@ test("12 · Bebidas solas viajan como renglón independiente", () => {
   assert.equal(detail.subtotal, 90);
   assert.match(ticket(menu, [taco({ Discada: 5 }), drinks], business.nombre).text, /Platito 2 · Bebidas/);
   assert.equal(ticket(menu, [taco({ Discada: 5 }), drinks], business.nombre).total, 210);
+  assert.equal(pricePlate(menu, { soloBebidas: true, bebidas: { "cafe-americano": 1 } }).subtotal, 40);
+  const chilaquiles = breakfast("chilaquiles", { salsa: "Verde", topping: "Pollo" });
+  assert.equal(pricePlate(menu, { ...chilaquiles, bebidas: { "cafe-americano": 1 } }).subtotal, 170);
 });
 
 test("13 · Chilaquiles con salsa, topping y complementos editables", () => {
@@ -65,10 +68,14 @@ test("13 · Chilaquiles con salsa, topping y complementos editables", () => {
 test("14 · El ticket conserva el descuento, guisos sobrantes y toppings", () => {
   for (const drink of menu.bebidas) {
     const detail = pricePlate(menu, taco({ Deshebrada: 5 }, { [drink.id]: 2 }));
-    assert.equal(detail.subtotal, 170);
+    const coffee = drink.id === "cafe-americano";
+    assert.equal(detail.subtotal, coffee ? 190 : 170);
     assert.equal(detail.combos[0].drink, drink.nombre);
-    assert.deepEqual(detail.drinks, [{ name: drink.nombre, qty: 1, total: 30 }]);
+    assert.deepEqual(detail.drinks, [{ name: drink.nombre, qty: 1, total: coffee ? 40 : 30 }]);
   }
+  const coffeeOrder = ticket(menu, [taco({ Deshebrada: 5 }, { "cafe-americano": 1 })], business.nombre);
+  assert.equal(coffeeOrder.total, 150);
+  assert.match(coffeeOrder.text, /Bebida incluida: Café Americano \(\+\$10\)/);
   const order = ticket(menu, [
     taco({ Deshebrada: 5, Discada: 1 }, { jamaica: 1 }),
     breakfast("chilaquiles", { salsa: "Verde", topping: "Pollo" }, { Picadillo: 2 })
@@ -100,7 +107,9 @@ test("16 · Menú accesible en HTML base, contacto y contador de prueba", () => 
   assert.equal(page.match(/<h1\b/g).length, 1);
   assert.doesNotMatch(page.match(/<nav id="site-nav"[\s\S]*?<\/nav>/)[0], /Nosotros|#presentacion/);
   assert.match(page, /Incluye bebida a elegir\./);
-  assert.doesNotMatch(page, /\b(?:Jugo|Té|Café)\b|\$7 extra/);
+  assert.equal(page.match(/Café Americano \(\+\$10\)/g).length, menu.combos.length);
+  assert.match(page, /<li>Café Americano · \$40<\/li>/);
+  assert.doesNotMatch(page, /\b(?:Jugo|Té)\b|\$7 extra/);
   assert.match(page, /<address>Pelícano 5604, Valle Verde 2\.º Sector, 64117 Monterrey, Nuevo León<\/address>/);
   assert.match(page, /Lunes a sábado, 8:00 a\. m\. a 3:30 p\. m\. · Domingo, 8:00 a\. m\. a 2:00 p\. m\./);
   assert.match(page, /href="https:\/\/wa\.me\/528132651667">WhatsApp de Gorditacos · \+528132651667/);

@@ -64,11 +64,13 @@ const cases = {
   "19": `
     click("#tab-combos"); click('[data-combo="tacos-5"]');
     const regular = $('[data-option="bebidaCombo"]');
-    const drinks = ["pepsi-regular", "pepsi-black", "manzanita", "limon", "naranja", "jamaica", "agua"];
+    const drinks = ["pepsi-regular", "pepsi-black", "manzanita", "limon", "naranja", "jamaica", "agua", "cafe-americano"];
     check([...regular.options].slice(1).map(item => item.value).join(",") === drinks.join(","), "El combo muestra todo el catálogo");
     change(field("Picadillo", $("#plate-form")), "5");
     regular.value = "agua"; regular.dispatchEvent(new Event("change", { bubbles: true }));
     check(text("#plate-detail").includes("$140"), "El agua natural mantiene el precio del combo");
+    regular.value = "cafe-americano"; regular.dispatchEvent(new Event("change", { bubbles: true }));
+    check(regular.selectedOptions[0].textContent === "Café Americano (+$10)" && text("#plate-detail").includes("$150"), "El café se muestra con el suplemento y actualiza el precio");
     finish();
     click('[data-combo="gorditas-15"]');
     check($("#plate-form [type=submit]").disabled, "El combo incompleto se mantiene bloqueado");
@@ -81,7 +83,7 @@ const cases = {
     check(text("#plate-detail").includes("$450"), "El precio es $450");
     finish(); click("[data-cart]");
     check($("#ticket").value.includes("Refresco de 2 litros"), "El ticket indica la presentación especial");
-    check($("#ticket").value.includes("Bebida incluida: Agua natural"), "El ticket incluye la bebida del combo directo");
+    check($("#ticket").value.includes("Bebida incluida: Café Americano (+$10)"), "El ticket incluye el café y su suplemento");
   `,
   "20": `
     check(getComputedStyle($("#site-nav")).display === "none", "La navegación móvil inicia cerrada");

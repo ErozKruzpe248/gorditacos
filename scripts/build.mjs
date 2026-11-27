@@ -13,6 +13,10 @@ for (const entry of [...menu.categorias, ...menu.combos, ...menu.desayunos, ...m
   ids.add(entry.id);
   if (entry.precio !== undefined && (!Number.isInteger(entry.precio) || entry.precio <= 0)) throw new Error("Precio inválido: " + entry.id);
 }
+for (const drink of menu.bebidas) {
+  const supplement = drink.suplementoCombo;
+  if (supplement !== undefined && (!Number.isInteger(supplement) || supplement < 0)) throw new Error("Suplemento de combo inválido: " + drink.id);
+}
 for (const combo of menu.combos) {
   if (!menu.categorias.some(item => item.id === combo.categoria && item.tipo === "guisos") || !menu.bebidas.length || !Number.isInteger(combo.cantidad) || combo.cantidad < 1 || combo.cantidad > 99) throw new Error("Requisitos de combo inválidos: " + combo.id);
   const special = combo.bebidaEspecial;

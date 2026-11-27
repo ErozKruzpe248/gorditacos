@@ -1,4 +1,4 @@
-import { money, LIMIT, quantity, count, comboDrinks, pricePlate, ticket } from "./precios.mjs";
+import { money, LIMIT, quantity, count, comboDrinks, comboDrinkLabel, pricePlate, ticket } from "./precios.mjs";
 
 const { menu, business } = JSON.parse(document.querySelector("#site-data").textContent);
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -176,7 +176,7 @@ function showEditor(plate, index = null) {
       breakfast.extra.opciones.map(item => stepper(item, item, current.extras[item])).join("") + '</div></details>';
   }
   if (combo) {
-    const options = comboDrinks(menu, combo).map(drink => ({ id: drink.id, label: drink.nombre }));
+    const options = comboDrinks(menu, combo).map(drink => ({ id: drink.id, label: comboDrinkLabel(drink.nombre, drink.suplementoCombo) }));
     controls += selectOptions("Bebida incluida", "bebidaCombo", options, current.bebidaCombo);
   } else {
     controls += '<fieldset><legend>' + (current.soloBebidas ? "Bebidas" : "Bebidas opcionales") + '</legend><div class="editor-grid" data-editor-group="bebidas">' + drinkRows(current.bebidas) + '</div></fieldset>';
@@ -238,7 +238,7 @@ function breakdown(detail) {
   const line = item => '<li><span>' + html(item.qty + " × " + item.name) + '</span><span>' + money(item.total) + '</span></li>';
   const groups = detail.combos.map(combo => '<div class="discount"><div class="split"><strong>Combo ' + html(combo.name) + '</strong><strong>' + money(combo.price) + '</strong></div><p>' +
     html(Object.entries(combo.guisos).filter(([, qty]) => qty).map(([name, qty]) => qty + " × " + name).join(" · ")) +
-    '</p><p>Bebida incluida · ' + html(combo.drink) + '</p></div>').join("");
+    '</p><p>Bebida incluida · ' + html(comboDrinkLabel(combo.drink, combo.supplement)) + '</p></div>').join("");
   const individual = detail.individual.length ? '<p class="line-label">Piezas individuales</p><ul class="lines">' + detail.individual.map(line).join("") + '</ul>' : '';
   const drinks = detail.drinks.length ? '<p class="line-label">Bebidas</p><ul class="lines">' + detail.drinks.map(line).join("") + '</ul>' : '';
   const extras = detail.extras.length ? '<p class="line-label">Toppings adicionales</p><ul class="lines">' + detail.extras.map(line).join("") + '</ul>' : '';

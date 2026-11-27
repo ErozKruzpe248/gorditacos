@@ -12,6 +12,18 @@ export function comboDrinks(menu, combo) {
   return combo.bebidaEspecial ? [...menu.bebidas, combo.bebidaEspecial] : menu.bebidas;
 }
 
+export function comboDrinkLabel(name, supplement) {
+  return supplement ? name + " (+" + money(supplement) + ")" : name;
+}
+
+function comboPrice(combo, drink) {
+  return combo.precio + (drink.suplementoCombo ?? 0);
+}
+
+function pricedCombo(combo, drink, guisos) {
+  return { name: combo.cantidad + " " + combo.nombre, guisos, drink: drink.nombre, supplement: drink.suplementoCombo, price: comboPrice(combo, drink) };
+}
+
 function automaticCombos(combos, drinks, units, unitPrice) {
   if (!combos.length) return [];
   // Each stage can consume the current drink at most once. States track units
@@ -26,7 +38,7 @@ function automaticCombos(combos, drinks, units, unitPrice) {
         for (const combo of combos) {
           const total = used + combo.cantidad;
           if (total > units) continue;
-          const saving = state.saving + combo.cantidad * unitPrice + drink.precio - combo.precio;
+          const saving = state.saving + combo.cantidad * unitPrice + drink.precio - comboPrice(combo, drink);
           if (saving > (next.get(total)?.saving ?? 0)) {
             next.set(total, { saving, selected: [...state.selected, { combo, drink }] });
           }
@@ -62,8 +74,8 @@ function priceGuisos(menu, plate) {
     if (!direct || direct.categoria !== category.id || direct.cantidad !== units) throw new Error("Completa la cantidad indicada para el combo.");
     const drink = comboDrinks(menu, direct).find(item => item.id === plate.bebidaCombo);
     if (!drink) throw new Error("Elige la bebida permitida para el combo.");
-    const detail = { name: direct.cantidad + " " + direct.nombre, guisos: remaining, drink: drink.nombre, price: direct.precio };
-    return { name: category.nombre, combos: [detail], individual: [], drinks: [], extras: [], subtotal: direct.precio };
+    const detail = pricedCombo(direct, drink, remaining);
+    return { name: category.nombre, combos: [detail], individual: [], drinks: [], extras: [], subtotal: detail.price };
   }
 
   if (!validCounts(plate.bebidas) || !sameOptions(plate.bebidas, menu.bebidas.map(drink => drink.id))) throw new Error("Revisa las bebidas.");
@@ -71,7 +83,7 @@ function priceGuisos(menu, plate) {
   const available = menu.combos.filter(combo => combo.categoria === category.id);
   const promos = automaticCombos(available, drinks, units, category.precio).map(({ combo, drink }) => {
     drink.qty--;
-    return { name: combo.cantidad + " " + combo.nombre, guisos: takeGuisos(remaining, combo.cantidad), drink: drink.nombre, price: combo.precio };
+    return pricedCombo(combo, drink, takeGuisos(remaining, combo.cantidad));
   });
   const individual = rows(remaining).map(([name, qty]) => line(name, qty, category.precio));
   const separateDrinks = drinks.filter(drink => drink.qty).map(drink => line(drink.nombre, drink.qty, drink.precio));
@@ -122,7 +134,7 @@ export function ticket(menu, plates, businessName) {
     for (const combo of detail.combos) {
       content.push("Combo " + combo.name + " — " + money(combo.price));
       for (const [guiso, qty] of rows(combo.guisos)) content.push("  • " + qty + " × " + guiso);
-      content.push("  Bebida incluida: " + combo.drink);
+      content.push("  Bebida incluida: " + comboDrinkLabel(combo.drink, combo.supplement));
     }
     if (detail.individual.length) content.push("Piezas individuales");
     for (const item of detail.individual) content.push("• " + item.qty + " × " + item.name + " — " + money(item.total));

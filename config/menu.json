@@ -164,6 +164,12 @@
       "nombre": "Agua natural",
       "precio": 30,
       "fuente": "M2"
+    },
+    {
+      "id": "cafe-americano",
+      "nombre": "Café Americano",
+      "precio": 40,
+      "suplementoCombo": 10
     }
   ],
   "combos": [

@@ -1,4 +1,4 @@
-import { money } from "../src/precios.mjs";
+import { money, comboDrinkLabel } from "../src/precios.mjs";
 
 const replacements = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 export const esc = value => String(value).replace(/[&<>"']/g, char => replacements[char]);
@@ -26,12 +26,14 @@ function categoryContent(menu, category) {
       button("breakfast", item.id, "Personalizar") + '</article>').join("");
   }
   if (category.tipo === "combos") {
+    const upgrades = menu.bebidas.filter(drink => drink.suplementoCombo)
+      .map(drink => comboDrinkLabel(drink.nombre, drink.suplementoCombo));
     return menu.combos.map(combo => {
       const description = combo.bebidaEspecial
         ? "Incluye bebida a elegir. También puedes elegir " + combo.bebidaEspecial.nombre.toLowerCase() + "."
         : "Incluye bebida a elegir.";
       return '<article class="menu-item"><div class="split"><h4>' + esc(combo.cantidad + " " + combo.nombre) + '</h4>' + fixed(combo.precio) + '</div>' +
-        '<p>' + esc(description) + '</p>' +
+        '<p>' + esc([description, ...upgrades].join(" · ")) + '</p>' +
         button("combo", combo.id, "Elegir combo") + '</article>';
     }).join("");
   }
